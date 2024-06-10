@@ -61,8 +61,8 @@ class CUsers:
             vol_ids = (
                 session.query(Vol.IdVol)
                 .join(Trajet, Trajet.IdTrajet == Vol.IdTrajet)
-                .join(Ville, Ville.IdVille == Trajet.VilleDepart)
-                .join(Ville, Ville.IdVille == Trajet.VilleArrive)  
+                .join(Ville, Ville.IdVille == Trajet.VilleDepart)#erreur ici
+                .join(Ville, Ville.IdVille == Trajet.VilleArrive)  #erreur ici
                 .filter(Ville.NomVille == ville_depart_nom)
                 .filter(Ville.NomVille == ville_arrivee_nom)
                 .all()
