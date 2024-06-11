@@ -1,3 +1,1 @@
-from tkinter import *
-from tkinter import ttk
-from tkinter import messagebox
+messagebox.showinfo("Erreur","Une erreur est survenue : Vous n'etes aps connecte")

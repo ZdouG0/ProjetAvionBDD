@@ -2,8 +2,8 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from IHMInscription import Inscription
-
-
+from createdatabase import *
+from IHM_variable_glob import*
 
 def Connexion() :
 
@@ -18,10 +18,18 @@ def Connexion() :
     rootwindow.title("Connexion") #son titre
 
     def donnee_form():
+        global glob_userEmail
         password = entry_password.get()
         email = entry_email.get()
-        #if (pas de compte):
-            #messagebox.showinfo("Erreur","Une erreur est survenue : Mots de passe ou email incorrect")
+        session = Session()
+        sql = text("SELECT * from Client WHERE Client.EmailClient ='"+email+"'") 
+        result = session.execute(sql)
+        if result.rowcount ==0 :
+            messagebox.showinfo("Erreur","Une erreur est survenue : Mots de passe ou email incorrect")
+        else : 
+            setUserEmail(email)
+            
+            messagebox.showinfo("Connexion","Connexion reussie !")
 
     def redirect_inscrip():
         Inscription()
@@ -55,4 +63,3 @@ def Connexion() :
     inscrip_button = Button(rootwindow, text="Pas de compte ? Inscription", command=redirect_inscrip)
     inscrip_button.grid(row=4, column=3, pady=20)
     rootwindow.mainloop()
-

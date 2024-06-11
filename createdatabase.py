@@ -3,13 +3,15 @@ from sqlalchemy.orm import relationship, sessionmaker, declarative_base, validat
 from sqlalchemy.exc import IntegrityError
 
 # Créer une connexion à la base de données
-engine = create_engine("mysql+mysqlconnector://root:milan@127.0.0.1/avionbdd", echo=None)
+engine = create_engine("mysql+mysqlconnector://root:password@127.0.0.1/avionbdd", echo=None)
 
 Base = declarative_base()
 
 # Définir une session
 Session = sessionmaker(bind=engine)
 session = Session()
+
+
 
 # Définir les classes correspondant aux tables
 class Avion(Base):
@@ -64,7 +66,7 @@ class Categorie(Base):
 class Vol(Base):
     __tablename__ = 'Vol'
     IdVol = Column(Integer, primary_key=True, autoincrement=True)
-    DateVol = Column(DateTime, nullable=False)
+    DateVol = Column(String(50), nullable=False)
     IdAvion = Column(Integer, ForeignKey('Avion.IdAvion'), nullable=False)
     IdTrajet = Column(Integer, ForeignKey('Trajet.IdTrajet'), nullable=False)
     IdPrestataire = Column(Integer, ForeignKey('Prestataire.IdPrestataire'), nullable=False)
@@ -136,8 +138,8 @@ add_initial_data(Avion, avion_data)
 
 # Ajouter des données initiales dans la table Client
 client_data = [
-    {'NomClient': 'Milan', 'AgeClient': 30, 'Nationalite': 'USA', 'EmailClient': 'milan', 'PasswordClient': 'p', 'TelephoneClient': '1234567890', 'Adresse': '1'},
-    {'NomClient': 'Jane Smith', 'AgeClient': 25, 'Nationalite': 'UK', 'EmailClient': 'jane.smith@example.com', 'PasswordClient': 'password2', 'TelephoneClient': '0987654321', 'Adresse': '456 Elm St'},
+    {'NomClient': 'User0', 'AgeClient': 0, 'Nationalite': 'test', 'EmailClient': 'root', 'PasswordClient': 'p', 'TelephoneClient': '1234567890', 'Adresse': '1'},
+    {'NomClient': 'yass', 'AgeClient': 25, 'Nationalite': 'FR', 'EmailClient': 'm', 'PasswordClient': 'p', 'TelephoneClient': '0987654321', 'Adresse': '456 Elm St'},
     {'NomClient': 'Alice Johnson', 'AgeClient': 35, 'Nationalite': 'Canada', 'EmailClient': 'alice.johnson@example.com', 'PasswordClient': 'password3', 'TelephoneClient': '1122334455', 'Adresse': '789 Maple St'}
 ]
 add_initial_data(Client, client_data)
@@ -167,10 +169,10 @@ trajet_data = [
     {'VilleDepart': 1, 'VilleArrive': 2},
     {'VilleDepart': 2, 'VilleArrive': 3},
     {'VilleDepart': 3, 'VilleArrive': 1},
-    {'VilleDepart': 1, 'VilleArrive': 28},
-    {'VilleDepart': 1, 'VilleArrive': 29},
-    {'VilleDepart': 1, 'VilleArrive': 30},
-    {'VilleDepart': 1, 'VilleArrive': 31}
+    {'VilleDepart': 1, 'VilleArrive': 4},
+    {'VilleDepart': 1, 'VilleArrive': 5},
+    {'VilleDepart': 1, 'VilleArrive': 6},
+    {'VilleDepart': 1, 'VilleArrive': 7}
 ]
 add_initial_data(Trajet, trajet_data)
 
@@ -184,27 +186,27 @@ add_initial_data(Categorie, categorie_data)
 
 # Ajouter des données initiales dans la table Vol
 vol_data = [
-    {'DateVol': '2023-06-15 08:00:00', 'IdAvion': 1, 'IdTrajet': 1, 'IdPrestataire': 1},
-    {'DateVol': '2023-07-20 10:00:00', 'IdAvion': 2, 'IdTrajet': 2, 'IdPrestataire': 2},
-    {'DateVol': '2023-08-25 12:00:00', 'IdAvion': 3, 'IdTrajet': 3, 'IdPrestataire': 3},
-    {'DateVol': '2023-09-05 14:00:00', 'IdAvion': 1, 'IdTrajet': 30, 'IdPrestataire': 1},
-    {'DateVol': '2023-09-10 16:00:00', 'IdAvion': 2, 'IdTrajet': 31, 'IdPrestataire': 2},
-    {'DateVol': '2023-09-15 18:00:00', 'IdAvion': 3, 'IdTrajet': 32, 'IdPrestataire': 3},
-    {'DateVol': '2023-09-20 20:00:00', 'IdAvion': 1, 'IdTrajet': 33, 'IdPrestataire': 1}
+    {'DateVol': '6/15/23', 'IdAvion': 1, 'IdTrajet': 1, 'IdPrestataire': 1},
+    {'DateVol': '7/20/23', 'IdAvion': 2, 'IdTrajet': 2, 'IdPrestataire': 2},
+    {'DateVol': '8/25/23', 'IdAvion': 3, 'IdTrajet': 3, 'IdPrestataire': 3},
+    {'DateVol': '9/05/23', 'IdAvion': 1, 'IdTrajet': 4, 'IdPrestataire': 1},
+    {'DateVol': '9/10/23', 'IdAvion': 2, 'IdTrajet': 5, 'IdPrestataire': 2},
+    {'DateVol': '9/15/23', 'IdAvion': 3, 'IdTrajet': 6, 'IdPrestataire': 3},
+    {'DateVol': '9/20/23', 'IdAvion': 1, 'IdTrajet': 7, 'IdPrestataire': 1}
 ]
 add_initial_data(Vol, vol_data)
 
 # Ajouter des données initiales dans la table Billet
 billet_data = [
-    {'PrixBillet': 500, 'IdCategorie': 1, 'IdClient': 1, 'IdVol': 1},
-    {'PrixBillet': 700, 'IdCategorie': 2, 'IdClient': 2, 'IdVol': 2},
-    {'PrixBillet': 1000, 'IdCategorie': 3, 'IdClient': 3, 'IdVol': 3}
+    {'PrixBillet': 500, 'IdCategorie': 1, 'IdClient': 2, 'IdVol': 5},
+    {'PrixBillet': 700, 'IdCategorie': 2, 'IdClient': 3, 'IdVol': 6},
+    {'PrixBillet': 1000, 'IdCategorie': 3, 'IdClient': 3, 'IdVol':7}
 ]
 add_initial_data(Billet, billet_data)
 
 # Ajouter des données initiales dans la table Relie
 relie_data = [
-    {'IdVille': 1, 'IdTrajet': 2}
+    {'IdVille': 1, 'IdTrajet': 5}
 ]
 add_initial_data(Relie, relie_data)
 
