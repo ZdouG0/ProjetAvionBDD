@@ -1,54 +1,50 @@
+# main.py
+
+from createdatabase import Session
 from ClssUsers import *
+from ClssPerson import *
 
 def main():
-    print("Veuillez vous connecter en donnant votre mail")
-    email = input("Email: ")
-    print("Password:")
-    password = input()
+    # Tester l'initialisation de l'utilisateur
+    email = input("Entrez votre email: ")
+    password = input("Entrez votre mot de passe: ")
+    user = CUsers(email=email, password=password)
 
-    # Création de l'objet utilisateur
-    user = CUsers(email, password)
-
-    if not user.UserId:
-        print("Échec de la connexion. Veuillez réessayer.")
+    if not hasattr(user, 'UserId'):
+        print("Échec de la connexion. Terminaison du programme.")
         return
 
     while True:
-        print("\nChoisissez une option:")
-        print("1. Rechercher des trajets")
-        print("2. Quitter")
-        choix = input("Votre choix: ")
+        print("\nMenu:")
+        print("1. Chercher un trajet")
+        print("2. Imprimer les billets")
+        print("3. Réserver un billet")
+        print("4. Voir les billets réservés")
+        print("5. Quitter")
 
-        if choix == '1':
-            print("Connaissez-vous la ville de retour ?")
-            print("1. Oui")
-            print("2. Non")
-            choix_ville = input(">> ")
-            if choix_ville == '1':
-                depart = input("Ville de départ: ")
-                arrivee = input("Ville d'arrivée: ")
-                user.search_trajet(depart, arrivee)
-            else:
-                depart = input("Ville de départ: ")
-                user.search_trajet(depart)
+        choice = input("Choisissez une option: ")
 
-            print("Voulez vous voir les billets proposés pour ces vol ?")
-            print("1. Oui")
-            print("2. Non")
-
-            choixd = input(">> ")
-            if choixd == '1' or choix_ville == 2:
-                print("Veuillez indiquer votre ville de retour: ")
-                arrivee = input("Ville d'arrive du vol: ")
-
+        if choice == '1':
+            depart = input("Entrez la ville de départ: ")
+            arrivee = input("Entrez la ville d'arrivée (optionnel): ")
+            prestataire = input("Entrez le nom du prestataire (optionnel): ")
+            categorie = input("Entrez la catégorie (optionnel): ")
+            prix = input("Entrez le prix maximum (optionnel): ")
+            prix = float(prix) if prix else None
+            user.search_trajet(depart, arrivee, prestataire, categorie, prix)
+        
+        elif choice == '2':
+            ville_depart = input("Entrez la ville de départ: ")
+            ville_arrivee = input("Entrez la ville d'arrivée: (optionnel)")
+            date = input("date : (optionnel)")
+            user.print_ticket(ville_depart,ville_arrivee,date)
             
-            user.search_trajet(depart,arrivee)
-            ids =  user.get_IdVol(depart,arrivee)
-            for id in ids :
-                user.print_ticket(id)
-
-        else:
-            print("Au revoir!")
+        
+        elif choice == '3':
+            vol_id = input("Entrez l'ID du vol: ")
+        elif choice == '4':
+            user.get_reserved_tickets()
+        elif choice == '5':
             break
 
 if __name__ == "__main__":
