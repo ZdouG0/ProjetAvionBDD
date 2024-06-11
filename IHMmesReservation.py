@@ -2,8 +2,8 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 
-#cette page permet l'affichage des resultat de la recherche
-def ResultRecherche(villeA,villeD,date,prix,categorie,prestataire):
+
+def mesReservation():
 
 
     #création de la fenetre
@@ -11,11 +11,9 @@ def ResultRecherche(villeA,villeD,date,prix,categorie,prestataire):
     #configuration de la fenetre 
     rootwindow.configure(bg="light goldenrod") #on definit la couleur du fond d'ecran de la fenetre
     rootwindow.geometry("800x500") #on definit la taille de la fenetre
-    rootwindow.title("Resultat") #son titre
+    rootwindow.title("Mes Reservations") #son titre
 
-
-
-    def Reservation():
+    def Annulation():
         pass
     
 
@@ -25,7 +23,7 @@ def ResultRecherche(villeA,villeD,date,prix,categorie,prestataire):
     Index_button = Button(rootwindow, text="Accueil", command=redirect_index)
     Index_button.grid(row=9, column=3, pady=20)
 
-    Titre_label = Label(rootwindow, text='Resultat',fg="black",bg="light goldenrod", font=('Berlin Sans FB Demi', 20)) #création du label qui affichera le nom du jeu 
+    Titre_label = Label(rootwindow, text='Mes Reservations',fg="black",bg="light goldenrod", font=('Berlin Sans FB Demi', 20)) #création du label qui affichera le nom du jeu 
     Titre_label.grid(row=1, column=2, padx=10, pady=10) #on le place
 
     label_Titre1 = Label(rootwindow, text="Ville Depart")
@@ -68,13 +66,12 @@ def ResultRecherche(villeA,villeD,date,prix,categorie,prestataire):
 
     
 
-    label_IDReserv = Label(rootwindow, text="id du billet a reserver")
+    label_IDReserv = Label(rootwindow, text="id reservation a annuler")
     label_IDReserv.grid(row=5, column=2, padx=10, pady=10)
     entry_IDReserv = Entry(rootwindow)
     entry_IDReserv.grid(row=5, column=3, padx=10, pady=10)
 
-    reserv_button = Button(rootwindow, text="Reserver", command=Reservation)
+    reserv_button = Button(rootwindow, text="Annuler", command=Annulation)
     reserv_button.grid(row=8, column=3, pady=20)
 
     rootwindow.mainloop()
-
